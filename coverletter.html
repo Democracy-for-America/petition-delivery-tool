@@ -1,0 +1,34 @@
+<!-- Example cover letter. Use Django-styled markup to create individualized PDFs addressed to legislators. -->
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <style>
+      body               { font-size: 10px; }
+      div.alwaysbreak    { page-break-before: always; }
+      div.nobreak:before { clear:both; }
+      div.nobreak        { page-break-inside: avoid; }
+    </style>
+  </head>
+
+  <body>
+    <div class="alwaysbreak">
+      <p>
+        <img src="http://democracyforamerica.com/assets/images/site_design/dfa_logo.png" style="height: 90px;">
+      </p>
+      <h1>
+        Say NO to TPP
+      </h1>
+      <p>Dear {{ long_title }} {{ first }} {{ last }},</p>
+      <p>Enclosed are {{ signature_count }} signatures from {{ state }} residents, asking you to vote against the TPP.</p>
+    </div>
+
+    <div class="alwaysbreak">
+      {% for signature in signatures %}<!--
+        --><div style="display: inline-block; width: 25%; margin-bottom: 0.5em;">{{ signature.first_name }} {{ signature.last_initial }}.<br />{{ signature.city }}, {{ signature.state }}</div><!--
+      -->{% endfor %}
+    </div>
+  </body>
+</html>
