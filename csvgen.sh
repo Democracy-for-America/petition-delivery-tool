@@ -12,15 +12,17 @@ do
   mysql -u ${USER} -p${PASSWORD} -h ${HOST} ${DATABASE} -e "
     SELECT
       TRIM(u.first_name) AS first_name,
+      TRIM(u.last_name) AS last_name,
       LEFT(TRIM(u.last_name), 1) AS last_initial,
       TRIM(u.city) AS city,
       u.state,
+      u.zip,
       TRIM(COALESCE(af.value, '')) AS comment
     FROM core_user u
     JOIN core_action a ON u.id = a.user_id
     LEFT JOIN core_actionfield af ON a.id = af.parent_id AND af.name = 'comment'
     WHERE
-      a.page_id IN (7646, 7577, 7572, 6462, 6441, 6431, 6389, 6301) AND -- Page IDs here
+      a.page_id IN (8064) AND -- Page IDs here
       u.state = '${state}'
     GROUP BY first_name, last_initial, city, state, comment
     ORDER BY comment = '', a.created_at

@@ -5,5 +5,5 @@
 . credentials.sh
 
 mysql -u ${USER} -p${PASSWORD} -h ${HOST} ${DATABASE} -e "
-  SELECT seat AS filename, state, title, long_title, first, last, official_full, nickname FROM core_target WHERE type = 'senate' ORDER BY seat
+  SELECT seat AS filename, state, title, long_title, first, last, official_full, nickname, party FROM core_target WHERE type = 'senate' ORDER BY seat
 " | csvcut -t > targets.csv

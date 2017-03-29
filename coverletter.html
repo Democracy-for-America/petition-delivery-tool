@@ -10,25 +10,31 @@
       div.alwaysbreak    { page-break-before: always; }
       div.nobreak:before { clear:both; }
       div.nobreak        { page-break-inside: avoid; }
+      #coverletter       { font-size: 13px; }
     </style>
   </head>
 
   <body>
-    <div class="alwaysbreak">
+    <div id="coverletter" class="alwaysbreak">
       <p>
         <img src="http://democracyforamerica.com/assets/images/site_design/dfa_logo.png" style="height: 90px;">
       </p>
-      <h1>
-        Say NO to TPP
-      </h1>
-      <p>Dear {{ long_title }} {{ first }} {{ last }},</p>
-      <p>Enclosed are {{ signature_count }} signatures from {{ state }} residents, asking you to vote against the TPP.</p>
+
+      <p>Dear Senator {{ first }} {{ last }},</p>
+
+      <p>{{ signature_count }} {{ state }} residents urge you to stand with YOUR constituents by demanding Attorney General Jeff Sessions' resignation.</p>
+
+      <p><strong>Jeff Sessions lied under oath about his contacts with Russia while he was advising the Trump campaign.</strong></p>
+
+      <p>This is completely unacceptable behavior for our country's top law enforcement officer, and it totally undermines the Justice Department's ability to neutrally and fairly investigate Russia's scandalous interference in our presidential election.</p>
+
+      <p>Sessions must resign -- and a neutral special prosecutor must be appointed to investigate Russia's relationship with the Trump administration.</p>
     </div>
 
     <div class="alwaysbreak">
-      {% for signature in signatures %}<!--
-        --><div style="display: inline-block; width: 25%; margin-bottom: 0.5em;">{{ signature.first_name }} {{ signature.last_initial }}.<br />{{ signature.city }}, {{ signature.state }}</div><!--
-      -->{% endfor %}
+      {% for signature in signatures %}{% cycle 'startrow': '<div>', nil, nil, nil %}<!--
+        --><div style="display: inline-block; width: 25%; vertical-align: top; margin: 0 0 0.5em; padding: 0px;">{{ signature.first_name }} {{ signature.last_name }}<br/>{{ signature.city }}, {{ signature.state }} {{ signature.zip }}</div><!--
+      -->{% cycle 'closerow': nil, nil, nil, '</div>' %}{% endfor %}
     </div>
   </body>
 </html>
